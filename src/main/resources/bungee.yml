@@ -1,0 +1,5 @@
+author: Kiwizin
+name: ${project.artifactId}
+version: ${project.version}
+
+main: ${main-bungee}

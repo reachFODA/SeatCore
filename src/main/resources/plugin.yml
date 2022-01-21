@@ -1,0 +1,6 @@
+author: EsinaKiwi
+name: ${project.artifactId}
+version: ${project.version}
+depend: [ProtocolLib, PlaceholderAPI]
+
+main: ${main-bukkit}
