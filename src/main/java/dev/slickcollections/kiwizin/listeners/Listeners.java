@@ -117,11 +117,14 @@ public class Listeners implements Listener {
     }
   }
 
+  // "darwin"
+
   @EventHandler(priority = EventPriority.MONITOR)
   public void onPlayerJoin(PlayerJoinEvent evt) {
     Player player = evt.getPlayer();
     SkinsContainer container = Profile.getProfile(player.getName()).getSkinsContainer();
-    if (container != null) {
+
+    if (container != null && !FakeManager.isFake(player.getName())) {
       String skinName = container.getSkin();
 
       if (skinName != null && container.getValue() != null && container.getSignature() != null && !skinName.equals("none")) {

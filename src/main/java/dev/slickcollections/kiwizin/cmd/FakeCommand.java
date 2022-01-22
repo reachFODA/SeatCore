@@ -71,7 +71,7 @@ public class FakeCommand extends Commands {
       }
 
       String skin = args[1];
-      if (!skin.equalsIgnoreCase("alex") && !skin.equalsIgnoreCase("steve") && !skin.equalsIgnoreCase("you")) {
+      if (!skin.equalsIgnoreCase("alex") && !skin.equalsIgnoreCase("steve") && !skin.equalsIgnoreCase("fake") && !skin.equalsIgnoreCase("you")) {
         EnumSound.VILLAGER_NO.play(player, 1.0F, 1.0F);
         FakeManager.sendSkin(player, roleName);
         return;
@@ -85,7 +85,11 @@ public class FakeCommand extends Commands {
       }
 
       enabled.clear();
-      FakeManager.applyFake(player, fakeName, roleName, skin.equalsIgnoreCase("steve") ? STEVE : skin.equalsIgnoreCase("you") ? (Manager.getSkin(player.getName(), "value") + ":" + Manager.getSkin(player.getName(), "signature")) : ALEX);
+      FakeManager.applyFake(player, fakeName, roleName, skin.equalsIgnoreCase("steve") ? STEVE :
+          skin.equalsIgnoreCase("you") ? (Manager.getSkin(player.getName(), "value") + ":" +
+              Manager.getSkin(player.getName(), "signature")) : skin.equalsIgnoreCase("fake") ?
+              Manager.getSkin(fakeName, "value") + ":" +
+              Manager.getSkin(fakeName, "signature") : ALEX);
     } else if (label.equalsIgnoreCase("faker")) {
       if (profile != null && profile.playingGame()) {
         player.sendMessage("§cVocê não pode utilizar este comando no momento.");

@@ -120,21 +120,14 @@ public class Listeners implements Listener {
     evt.setResponse(response);
   }
 
-  @EventHandler(priority = (byte) 128)
-  public void onServerConnected(ServerConnectedEvent evt) {
-    ProxiedPlayer player = evt.getPlayer();
-
-    BungeeParty party = BungeePartyManager.getLeaderParty(player.getName());
-    if (party != null) {
-      party.sendData(evt.getServer().getInfo());
-    }
-
+  @EventHandler
+  public void onLogin(LoginEvent evt) {
     if (Database.getInstance() instanceof MongoDBDatabase) {
       Bungee.getInstance().getLogger().warning("Nao foi possivel atualizar skin no bungeecord. Banco de dados nao suportado");
       return;
     }
 
-    CachedRowSet cachedRowSet = ((HikariDatabase) Database.getInstance()).query("SELECT * FROM `kCoreSkins` WHERE LOWER(`name`) = ?", player.getName().toLowerCase());
+    CachedRowSet cachedRowSet = ((HikariDatabase) Database.getInstance()).query("SELECT * FROM `kCoreSkins` WHERE LOWER(`name`) = ?", evt.getConnection().getName().toLowerCase());
 
     String skinInfo = null;
     try {
@@ -153,10 +146,37 @@ public class Listeners implements Listener {
         }
         String data = result.get("value").toString() + ":" + result.get("signature").toString();
 
-        LoginResult profile = ((InitialHandler) player.getPendingConnection()).getLoginProfile();
+        LoginResult profile = ((InitialHandler) evt.getConnection()).getLoginProfile();
         if (profile != null) {
           this.modifyProperties(profile, data.split(":"));
         }
+      }
+    }
+  }
+
+  @EventHandler(priority = (byte) 128)
+  public void onServerConnected(ServerConnectedEvent evt) {
+    ProxiedPlayer player = evt.getPlayer();
+
+    BungeeParty party = BungeePartyManager.getLeaderParty(player.getName());
+    if (party != null) {
+      party.sendData(evt.getServer().getInfo());
+    }
+
+    if (Bungee.isFake(player.getName())) {
+      String skin = Bungee.getSkin(player.getName());
+      // Enviar dados desse jogador que está utilizando Fake para o servidor processar.
+      ByteArrayDataOutput out = ByteStreams.newDataOutput();
+      out.writeUTF("FAKE");
+      out.writeUTF(player.getName());
+      out.writeUTF(Bungee.getFake(player.getName()));
+      out.writeUTF(StringUtils.stripColors(Bungee.getRole(player.getName()).getName()));
+      out.writeUTF(skin);
+      evt.getServer().sendData("kCore", out.toByteArray());
+
+      LoginResult profile = ((InitialHandler) player.getPendingConnection()).getLoginProfile();
+      if (profile != null) {
+        this.modifyProperties(profile, skin.split(":"));
       }
     }
   }

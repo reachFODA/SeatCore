@@ -42,7 +42,6 @@ public class PluginMessageListener implements org.bukkit.plugin.messaging.Plugin
             String roleName = in.readUTF();
             String skin = in.readUTF();
             FakeManager.applyFake(player, fakeName, roleName, skin);
-            Profile.getProfile(player.getName()).getSkinsContainer().setSkin(FakeManager.getFake(player.getName()));
             NMS.refreshPlayer(player);
           }
           break;

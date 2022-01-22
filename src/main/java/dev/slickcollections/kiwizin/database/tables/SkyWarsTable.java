@@ -13,24 +13,24 @@ import java.util.Map;
 
 @DataTableInfo(
     name = "kCoreSkyWars",
-    create = "CREATE TABLE IF NOT EXISTS `kCoreSkyWars` (`name` VARCHAR(32), `1v1kills` LONG, `1v1deaths` LONG, `1v1assists` LONG, `1v1games` LONG, `1v1wins` LONG, `2v2kills` LONG, `2v2deaths` LONG, `2v2assists` LONG, `2v2games` LONG, `2v2wins` LONG, `rankedkills` LONG, `rankeddeaths` LONG, `rankedassists` LONG, `rankedgames` LONG, `rankedwins` LONG, `rankedpoints` LONG, `monthlykills` LONG, `monthlydeaths` LONG, `monthlypoints` LONG, `monthlyassists` LONG, `monthlywins` LONG, `monthlygames` LONG, `month` TEXT, `coins` DOUBLE, `lastmap` LONG, `cosmetics` TEXT, `selected` TEXT, `kitconfig` TEXT, `perkconfig` TEXT, `leveling` TEXT, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
+    create = "CREATE TABLE IF NOT EXISTS `kCoreSkyWars` (`name` VARCHAR(32), `1v1kills` LONG, `1v1deaths` LONG, `1v1assists` LONG, `1v1games` LONG, `1v1wins` LONG, `2v2kills` LONG, `2v2deaths` LONG, `2v2assists` LONG, `2v2games` LONG, `2v2wins` LONG, `rankedkills` LONG, `rankeddeaths` LONG, `rankedassists` LONG, `rankedgames` LONG, `rankedwins` LONG, `rankedpoints` LONG, `monthlykills` LONG, `monthlydeaths` LONG, `monthlypoints` LONG, `monthlyassists` LONG, `monthlywins` LONG, `monthlygames` LONG, `month` TEXT, `coins` DOUBLE, `lastmap` LONG, `cosmetics` TEXT, `selected` TEXT, `kitconfig` TEXT, `perkconfig` TEXT, `companyconfig` TEXT, `leveling` TEXT, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
     select = "SELECT * FROM `kCoreSkyWars` WHERE LOWER(`name`) = ?",
-    insert = "INSERT INTO `kCoreSkyWars` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    update = "UPDATE `kCoreSkyWars` SET `1v1kills` = ?, `1v1deaths` = ?, `1v1assists` = ?, `1v1games` = ?, `1v1wins` = ?, `2v2kills` = ?, `2v2deaths` = ?, `2v2assists` = ?, `2v2games` = ?, `2v2wins` = ?, `rankedkills` = ?, `rankeddeaths` = ?, `rankedassists` = ?, `rankedgames` = ?, `rankedwins` = ?, `rankedpoints` = ?, `monthlykills` = ?, `montlhydeaths` = ?, `monthlypoints` = ?, `monthlyassists` = ?, `monthlywins` = ?, `monthlygames` = ?, `month` = ?, `coins` = ?, `lastmap` = ?, `cosmetics` = ?, `selected` = ?, `kitconfig` = ?, `perkconfig` = ?, `leveling` = ? WHERE LOWER(`name`) = ?"
+    insert = "INSERT INTO `kCoreSkyWars` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    update = "UPDATE `kCoreSkyWars` SET `1v1kills` = ?, `1v1deaths` = ?, `1v1assists` = ?, `1v1games` = ?, `1v1wins` = ?, `2v2kills` = ?, `2v2deaths` = ?, `2v2assists` = ?, `2v2games` = ?, `2v2wins` = ?, `rankedkills` = ?, `rankeddeaths` = ?, `rankedassists` = ?, `rankedgames` = ?, `rankedwins` = ?, `rankedpoints` = ?, `monthlykills` = ?, `montlhydeaths` = ?, `monthlypoints` = ?, `monthlyassists` = ?, `monthlywins` = ?, `monthlygames` = ?, `month` = ?, `coins` = ?, `lastmap` = ?, `cosmetics` = ?, `selected` = ?, `kitconfig` = ?, `perkconfig` = ?, `companyconfig` = ?, `leveling` = ? WHERE LOWER(`name`) = ?"
 )
 public class SkyWarsTable extends DataTable {
   
   @Override
   public void init(Database database) {
     if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreSkyWars` LIKE 'perkconfig'") == null) {
+      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreSkyWars` LIKE 'companyconfig'") == null) {
         ((MySQLDatabase) database).execute(
-            "ALTER TABLE `kCoreSkyWars` ADD `perkconfig` TEXT AFTER `kitconfig`");
+            "ALTER TABLE `kCoreSkyWars` ADD `companyconfig` TEXT AFTER `perkconfig`");
       }
     } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreSkyWars` LIKE 'perkconfig'") == null) {
+      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreSkyWars` LIKE 'companyconfig'") == null) {
         ((HikariDatabase) database).execute(
-            "ALTER TABLE `kCoreSkyWars` ADD `perkconfig` TEXT AFTER `kitconfig`");
+            "ALTER TABLE `kCoreSkyWars` ADD `companyconfig` TEXT AFTER `perkconfig`");
       }
     }
   }
@@ -64,6 +64,7 @@ public class SkyWarsTable extends DataTable {
     defaultValues.put("selected", new DataContainer("{}"));
     defaultValues.put("kitconfig", new DataContainer("{}"));
     defaultValues.put("perkconfig", new DataContainer("{}"));
+    defaultValues.put("companyconfig", new DataContainer("{}"));
     defaultValues.put("leveling", new DataContainer("{}"));
     return defaultValues;
   }

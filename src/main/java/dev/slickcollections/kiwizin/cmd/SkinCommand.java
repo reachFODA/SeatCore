@@ -20,13 +20,30 @@ public class SkinCommand extends Commands {
     LIBRARY.put("Tatsumi", "Tatsuumiii");
     LIBRARY.put("Venom", "Venoms_GM");
     LIBRARY.put("Goku", "Oyo_Boyo");
-    LIBRARY.put("Naruto", "Naturc");
-    LIBRARY.put("Homem Aranha", "700c");
-    LIBRARY.put("Homem de Ferro", "6ixsauer");
+    LIBRARY.put("Naruto", "Narutc");
+    LIBRARY.put("HomemAranha", "700c");
+    LIBRARY.put("HomemdeFerro", "6ixsauer");
     LIBRARY.put("Jiraya", "Zakharov");
     LIBRARY.put("Kakashi", "eZio789");
     LIBRARY.put("Obito", "sharinganek");
     LIBRARY.put("Mitsuki", "iXwin");
+    LIBRARY.put("Todoroki ", "_Slm");
+    LIBRARY.put("Midoriya", "LHIP");
+    LIBRARY.put("All Might", "xG18x");
+    LIBRARY.put("Zero Two", "Zer0_2");
+    LIBRARY.put("Luffy", "Tlaoof");
+    LIBRARY.put("Saitama", "BradyJonas");
+    LIBRARY.put("Sakura", "MysticalFire128");
+    LIBRARY.put("Sasuke", "SasukeUchiha");
+    LIBRARY.put("Ranger Preto", "Geero0");
+    LIBRARY.put("Ranger Amarelo", "Harryr_");
+    LIBRARY.put("Ranger Branco", "crimb");
+    LIBRARY.put("Ranger Verde", "nickloading");
+    LIBRARY.put("Ranger Azul", "TewPaq");
+    LIBRARY.put("Ranger Roxa", "blmsikecuh345");
+    LIBRARY.put("Ranger Rosa", "Zyluh");
+    LIBRARY.put("Ranger Vermelho", "imcheatinglul");
+
   }
 
   public SkinCommand() {
@@ -74,8 +91,6 @@ public class SkinCommand extends Commands {
         profile.getSkinListContainer().addSkin(LIBRARY.get(librarySkin));
         player.sendMessage("§aSua skin foi atualizada, relogue para ela aparecer.");
         profile.getSkinsContainer().setSkin(LIBRARY.get(librarySkin));
-      } else {
-        player.sendMessage("§cSkin não encontrada.");
       }
       return;
     }

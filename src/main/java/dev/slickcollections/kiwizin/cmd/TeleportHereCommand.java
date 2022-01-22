@@ -27,6 +27,10 @@ public class TeleportHereCommand extends Commands {
       return;
     }
     Player target = Bukkit.getPlayer(args[0]);
+    if (target == null) {
+      player.sendMessage("§cJogador não encontrado.");
+      return;
+    }
     target.teleport(player);
     target.sendMessage("§aVocê foi teleportado para o jogador " + Role.getColored(player.getName()) + "§a.");
   }

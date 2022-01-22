@@ -8,18 +8,26 @@ import dev.slickcollections.kiwizin.utils.BukkitUtils;
 import dev.slickcollections.kiwizin.utils.enums.EnumSound;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class MenuStatistics extends PlayerMenu {
-  
+
+  public Inventory inventory;
+
   public MenuStatistics(Profile profile) {
-    super(profile.getPlayer(), "Estatísticas", 4);
-    
+   super(profile.getPlayer(), "Estatísticas", 4);
+
+    Player player = profile.getPlayer();
+    this.inventory = player.getInventory();
+
+
     this.setItem(11, BukkitUtils.deserializeItemStack(PlaceholderAPI.setPlaceholders(this.player,
         "GRASS : 1 : nome>&aSky Wars : desc>&eSolo:\n&a➟ &fAbates: &7%kCore_SkyWars_1v1kills%\n&a➟ &fMortes: &7%kCore_SkyWars_1v1deaths%\n&a➟ &fVitórias: &7%kCore_SkyWars_1v1wins%\n&a➟ &fPartidas: &7%kCore_SkyWars_1v1games%\n&a➟ &fAssistências: &7%kCore_SkyWars_1v1assists%\n " + /*"\n&eDupla:\n &8▪ &fAbates: &7%kCore_SkyWars_2v2kills%\n &8▪ &fMortes: &7%kCore_SkyWars_2v2deaths%\n &8▪ &fVitórias: &7%kCore_SkyWars_2v2wins%\n &8▪ &fPartidas: &7%kCore_SkyWars_2v2games%\n &8▪ &fAssistências: &7%kCore_SkyWars_2v2assists%\n*/ "\n&eRanked:\n&a➟ &fAbates: &7%kCore_SkyWars_rankedkills%\n&a➟ &fMortes: &7%kCore_SkyWars_rankeddeaths%\n&a➟ &fVitórias: &7%kCore_SkyWars_rankedwins%\n&a➟ &fPartidas: &7%kCore_SkyWars_rankedgames%\n&a➟ &fPontos: &7%kCore_SkyWars_rankedpoints%\n \n&fCoins: &6%kCore_SkyWars_coins%")));
     
@@ -33,7 +41,7 @@ public class MenuStatistics extends PlayerMenu {
 //        "282 : 1 : nome>&cEm breve")));
 
     this.setItem(31, BukkitUtils.deserializeItemStack("INK_SACK:1 : 1 : nome>&cVoltar"));
-    
+
     this.register(Core.getInstance());
     this.open();
   }
