@@ -1,2 +1,2 @@
-# kCore
-Compilado de funções para plugin de Minecraft.
+# Seat
+Compilado de funções para a RedeSeat.
